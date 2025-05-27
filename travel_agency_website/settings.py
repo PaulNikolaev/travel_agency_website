@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'mainapp',
+    'authapp',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'authapp.TravelUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
