@@ -30,7 +30,7 @@
 
                             {% if user.is_superuser %}
                                 <div class="dropdown-divider"></div>
-
+                                <a class="dropdown-item" href="{% url 'admin:users' %}">админка</a>
                             {% endif %}
                         </div>
 
