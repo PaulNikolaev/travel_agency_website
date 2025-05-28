@@ -131,3 +131,86 @@ class CountryDeleteView(DeleteView):
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
+
+# админка - список предложений компании
+@user_passes_test(lambda u: u.is_superuser)
+def accommodations(request, pk):
+    title = 'админка/размещение'
+
+    country = get_object_or_404(ListOfCountries, pk=pk)
+    accommodation_list = Accommodation.objects.filter(country__id=pk).order_by('name')
+
+    content = {
+        'title': title,
+        'country': country,
+        'objects': accommodation_list,
+    }
+    return render(request, 'adminapp/accommodations.html', content)
+
+
+# админка - создание нового предложения
+@user_passes_test(lambda u: u.is_superuser)
+def accommodation_create(request, pk):
+    title = 'размещение/создание'
+    country = get_object_or_404(ListOfCountries, pk=pk)
+
+    if request.method == 'POST':
+        accommodation_form = AccommodationEditForm(request.POST, request.FILES)
+        if accommodation_form.is_valid():
+            accommodation_form.save()
+            return HttpResponseRedirect(reverse('admin:accommodations', args=[pk]))
+    else:
+        accommodation_form = AccommodationEditForm(initial={'country': country})
+    content = {
+        'title': title,
+        'update_form': accommodation_form,
+        'country': country,
+    }
+    return render(request, 'adminapp/accommodation_update.html', content)
+
+
+# админка - редактирование предложения
+@user_passes_test(lambda u: u.is_superuser)
+def accommodation_update(request, pk):
+    title = 'размещение/редактирование'
+    edit_accommodation = get_object_or_404(Accommodation, pk=pk)
+
+    if request.method == 'POST':
+        accommodation_edit_form = AccommodationEditForm(request.POST, request.FILES, instance=edit_accommodation)
+        if accommodation_edit_form.is_valid():
+            accommodation_edit_form.save()
+            return HttpResponseRedirect(reverse('admin:accommodation_update', args=[edit_accommodation.pk]))
+    else:
+        accommodation_edit_form = AccommodationEditForm(instance=edit_accommodation)
+
+    content = {
+        'title': title,
+        'update_form': accommodation_edit_form,
+        'country': edit_accommodation.country,
+    }
+    return render(request, 'adminapp/accommodation_update.html', content)
+
+
+# админка - карточка предложения компании
+class AccommodationDetailView(DetailView):
+    model = Accommodation
+    template_name = 'adminapp/accommodation_read.html'
+
+
+# админка - удаление предложения
+@user_passes_test(lambda u: u.is_superuser)
+def accommodation_delete(request, pk):
+    title = 'размещение/удаление'
+    accommodation = get_object_or_404(Accommodation, pk=pk)
+
+    if request.method == 'POST':
+        accommodation.is_active = False
+        accommodation.save()
+        return HttpResponseRedirect(reverse('admin:accommodations', args=[accommodation.country.pk]))
+
+    content = {
+        'title': title,
+        'accommodation_to_delete': accommodation,
+    }
+    return render(request, 'adminapp/accommodation_delete.html', content)
