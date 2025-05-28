@@ -12,4 +12,16 @@
             пользователи
         </a>
     </li>
+    <li>
+        <a href="{% url 'admin:countries' %}"
+           class="{% if request.resolver_match.url_name == 'countries' or country.name %}
+            active
+          {% endif %}">
+            страны
+            {% if country %}
+                :<span>{{ country.name }}</span>
+            {% endif %}
+        </a>
+    </li>
+
 </ul>

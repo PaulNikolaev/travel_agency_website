@@ -82,3 +82,52 @@ def user_delete(request, pk):
         'user_to_delete': user,
     }
     return render(request, 'adminapp/user_delete.html', content)
+
+
+# админка - список стран
+@user_passes_test(lambda u: u.is_superuser)
+def countries(request):
+    title = 'админка/страны'
+
+    countries_list = ListOfCountries.objects.all()
+
+    content = {
+        'title': title,
+        'objects': countries_list,
+    }
+    return render(request, 'adminapp/countries.html', content)
+
+
+# админка - создание страны
+class CountryCreateView(CreateView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_update.html'
+    success_url = reverse_lazy('admin:countries')
+    fields = '__all__'
+
+
+# админка - редактирование страны
+class CountryUpdateView(UpdateView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_update.html'
+    success_url = reverse_lazy('admin:countries')
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'страны/редактирование'
+        return context
+
+
+# админка - удаление страны
+class CountryDeleteView(DeleteView):
+    model = ListOfCountries
+    template_name = 'adminapp/country_delete.html'
+    success_url = reverse_lazy('admin:countries')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
