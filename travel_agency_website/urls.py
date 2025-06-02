@@ -27,6 +27,7 @@ urlpatterns = [
     path('list_of_accommodations/', include('mainapp.urls', namespace='acc')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('admin/', include('adminapp.urls', namespace='admin')),
+    path('basket/', include('basketapp.urls', namespace='basket')),
 ]
 
 if settings.DEBUG:
