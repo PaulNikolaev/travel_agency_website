@@ -25,7 +25,7 @@ def basket_add(request, pk):
         return HttpResponseRedirect(reverse('acc:accommodations', args=[pk]))
 
     accommodation = get_object_or_404(Accommodation, pk=pk)
-    basket = Basket.objects.filter(user=request.user, accommodation=accommodation)
+    basket = Basket.objects.filter(user=request.user, accommodation=accommodation).first()
 
     if not basket:
         basket = Basket(user=request.user, accommodation=accommodation)
