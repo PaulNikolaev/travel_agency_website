@@ -192,56 +192,6 @@ html, body {
     text-decoration: none;
 }
 
-.product_record {
-    height: 125px;
-    margin: 15px auto;
-    position: relative;
-}
-
-.product_record.not_active {
-    opacity: 0.5;
-}
-
-.product_record .product_name {
-    display: block;
-    float: left;
-    margin-top: 25px;
-    margin-left: 25px;
-    width: 250px;
-    font-size: 150%;
-}
-
-.product_record .product_actions {
-    display: block;
-    float: left;
-    margin-top: 0px;
-    margin-left: 25px;
-    width: 135px;
-}
-
-.product_record .product_desc {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 350px;
-}
-
-.product_record .summary {
-    display: block;
-    float: left;
-    margin-top: 15px;
-    margin-left: 25px;
-    width: 100px;
-}
-
-.product_record img {
-    display: block;
-    float: left;
-    height: 125px;
-    width: 125px;
-    border-radius: 25px;
-}
 
 
 .new_category_form {
@@ -372,6 +322,14 @@ html, body {
     position: relative;
 }
 
+.user_record, .country_record {
+    height: 125px;
+    margin: 15px auto;
+    position: relative;
+}
+
+
+
 .user_record.not_active {
     opacity: 0.5;
 }
@@ -459,14 +417,15 @@ html, body {
     width: 900px;
 }
 
-.basket_list input[type="number"] {
+
+.basket_list .foot input[type="number"] {
     width: 3em;
     position: relative;
     display: block;
     float: left;
 }
 
-.basket_list span.category_name {
+.basket_list .foot span.category_name {
     margin-left: 2em;
     width: 5em;
     position: relative;
@@ -474,7 +433,7 @@ html, body {
     float: left;
 }
 
-.basket_list span.product_name {
+.basket_list .foot span.product_name {
     margin-left: 1em;
     width: 8em;
     position: relative;
@@ -490,7 +449,7 @@ html, body {
     float: left;
 }
 
-.basket_list span.product_quantitiy {
+.basket_list .foot span.product_quantitiy {
     margin-left: 1em;
     width: 5em;
     position: relative;
@@ -498,7 +457,7 @@ html, body {
     float: left;
 }
 
-.basket_list span.product_cost {
+.basket_list .foot span.product_cost {
     margin-left: 1em;
     width: 10em;
     position: relative;
@@ -506,7 +465,7 @@ html, body {
     float: left;
 }
 
-.basket_list .basket_record {
+.basket_list .foot .basket_record {
     position: relative;
     display: block;
     height: 170px;
@@ -517,7 +476,7 @@ html, body {
     margin: 25px auto;
 }
 
-.basket_list .basket_record button {
+.basket_list .foot .basket_record button {
     margin-top: 50px;
     margin-left: 390px;
     width: 150px;
@@ -526,7 +485,7 @@ html, body {
     float: left;
 }
 
-.basket_list button {
+.basket_list .foot button {
     margin-left: 45px;
     width: 150px;
     display: block;

@@ -17,16 +17,12 @@ class Basket(models.Model):
     # Общее количество ночей по всем заказам
     @property
     def total_nights(self):
-        _accommodation = Basket.objects.filter(user=self.user)
-        _total_nights = sum(list(map(lambda x: x.nights, _accommodation)))
-        return _total_nights
+        return sum(item.nights for item in Basket.objects.filter(user=self.user))
 
     # Общая стоимость всех предложений в корзине
     @property
-    def total_coast(self):
-        _accommodation = Basket.objects.filter(user=self.user)
-        _total_coast = sum(list(map(lambda x: x.accommodation_cost, _accommodation)))
-        return _total_coast
+    def total_cost(self):
+        return sum(item.accommodation_cost for item in Basket.objects.filter(user=self.user))
 
     # количество заказов пользователя в корзине
     @staticmethod

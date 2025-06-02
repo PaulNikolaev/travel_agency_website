@@ -1,31 +1,24 @@
 {% for reservation in basket_items %}
-    <div class="container">
-        {#        <img src="/media/{{ reservation.accommodation.image }}"#}
-        {#             alt="{{ reservation.accommodation.short_desc }}">#}
-        <div class="row flex-wrap form-group col-lg-sm text">
-            <div>
-                <span class="col-form-label"><b>Страна: </b>{{ reservation.accommodation.country.name|title }}</span>
-                <span class=""><b>Размещение: </b>{{ reservation.accommodation.name|title }}</span>
-                <span class=""><b>Стоимость суток: </b>{{ reservation.accommodation.price }}&nbspруб</span>
-                <span class=""><b>Количество ночей: </b>{{ reservation.nights }}</span>
-
-
+    <div class="container my-2">
+        <div class="row align-items-center border rounded p-2">
+            <div class="col-md-9">
+                <span class="d-block"><b>Страна: </b>{{ reservation.accommodation.country.name|title }}</span>
+                <span class="d-block"><b>Размещение: </b>{{ reservation.accommodation.name|title }}</span>
+                <span class="d-block"><b>Стоимость суток: </b>{{ reservation.accommodation.price }}&nbspруб</span>
             </div>
-            <div>
-                <button class="btn btn-danger btn-sm">
-                    <a style="color: white; text-decoration: none" href="{% url 'basket:remove' reservation.pk %}"
-                       class="">
-                        удалить
-                    </a>
-                </button>
+            <div class="col-md-3 d-flex flex-column align-items-end">
+                <label><b>Количество ночей:</b></label>
+                <input type="number" name="{{ reservation.pk }}" min="0" value="{{ reservation.nights }}" class="form-control mb-2" style="width: 80px;">
+                <a href="{% url 'basket:remove' reservation.pk %}" class="btn btn-danger btn-sm">
+                    удалить
+                </a>
             </div>
         </div>
     </div>
 {% endfor %}
 
 {% if basket_items %}
-    <div class="basket_summary text-right">
-        Забронировано {{ basket_items.0.total_nights }} суток, общей стоимостью
-        {{ basket_items.0.total_cost }} руб
+    <div class="basket_summary text-right mt-3">
+        Забронировано {{ total_nights }} суток, общей стоимостью {{ total_cost }} руб
     </div>
 {% endif %}
