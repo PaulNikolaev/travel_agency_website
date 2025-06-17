@@ -20,7 +20,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         '/v1/people/me',
         None,
         urlencode({
-            'personFields': 'genders,birthdays',
+            'personFields': 'genders,birthdays,biographies',
             'access_token': response['access_token']
         }),
         None
@@ -33,11 +33,9 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         return
 
     data = resp.json()
-
     try:
         user_profile = user.traveluserprofile
     except TravelUserProfile.DoesNotExist:
-        # Этого не должно произойти, если сигналы работают корректно
         user_profile = TravelUserProfile.objects.create(user=user)
 
     if 'genders' in data and data['genders']:
@@ -48,10 +46,10 @@ def save_user_profile(backend, user, response, *args, **kwargs):
             elif gender_data['value'].lower() == 'female':
                 user_profile.gender = TravelUserProfile.FEMALE
 
-    # if 'aboutMes' in data and data['aboutMes']:
-    #     about_me_data = data['aboutMes'][0]
-    #     if 'value' in about_me_data:
-    #         user_profile.aboutMe = about_me_data['value'][:512]
+    if 'biographies' in data and data['biographies']:
+        about_me_data = data['biographies'][0]
+        if 'value' in about_me_data:
+            user_profile.aboutMe = about_me_data['value'][:512]
 
     if 'birthdays' in data and data['birthdays']:
         birthday_data = data['birthdays'][0]

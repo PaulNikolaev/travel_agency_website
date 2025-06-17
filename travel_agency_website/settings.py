@@ -124,7 +124,6 @@ AUTH_USER_MODEL = 'authapp.TravelUser'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -163,7 +162,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/user.birthday.read',
     'https://www.googleapis.com/auth/user.gender.read',
-    # 'https://www.googleapis.com/auth/user.aboutme.read',
 ]
 
 SOCIAL_AUTH_PIPELINE = (
