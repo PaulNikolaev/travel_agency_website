@@ -4,13 +4,13 @@ window.onload = function () {
         const nights = target.value;
         const pk = target.name;
 
-        if (nights < 1) return; // минимальное значение
+        if (nights < 1) return;
 
         $.ajax({
             url: `/basket/edit/${pk}/${nights}/`,
             method: 'GET',
             success: function (data) {
-                $('.basket_list').html(data.result);  // обновляем HTML корзины
+                $('.basket_list').html(data.result);
                 console.log('AJAX обновление выполнено');
             },
             error: function () {

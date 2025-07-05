@@ -62,9 +62,8 @@ def basket_edit(request, pk, nights):
             basket.nights = nights
             basket.save()
     except ValueError:
-        pass  # можно также вернуть ошибку, если нужно
+        pass
 
-    # 👇 ВСТАВЬ ЗДЕСЬ — после сохранения корзины
     basket_items = Basket.get_items(request.user)
     total_nights = sum(item.nights for item in basket_items)
     total_cost = sum(item.accommodation_cost for item in basket_items)
