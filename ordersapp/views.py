@@ -114,3 +114,25 @@ class OrderItemsUpdate(UpdateView):
             self.object.delete()
 
         return super(OrderItemsUpdate, self).form_valid(form)
+
+
+class OrderRead(DetailView):
+    model = Order
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderRead, self).get_context_data(**kwargs)
+        context['title'] = 'заказ/просмотр'
+        return context
+
+
+class OrderDelete(DeleteView):
+    model = Order
+    success_url = reverse_lazy('ordersapp:orders_list')
+
+
+def order_forming_complete(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    order.status = Order.SENT_TO_PROCEED
+    order.save()
+
+    return HttpResponseRedirect(reverse('ordersapp:orders_list'))
